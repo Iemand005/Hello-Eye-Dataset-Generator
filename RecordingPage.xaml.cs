@@ -43,7 +43,7 @@ public sealed partial class RecordingPage : Page
         InitializeComponent();
 
 
-        SelectFolderAsync().Wait();
+        SelectFolder();
     }
 
     private void AnimationTimer_Tick(object sender, object e)
@@ -62,11 +62,10 @@ public sealed partial class RecordingPage : Page
         _timer.Start();
     }
 
-    private async Task<bool> SelectFolderAsync()
+    private void SelectFolder()
     {
         try
         {
-            
             var folderPicker = new FolderPicker();
 
             folderPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
@@ -77,17 +76,13 @@ public sealed partial class RecordingPage : Page
             
             DispatcherQueue.TryEnqueue(async () =>
             {
-
                 _folder = await folderPicker.PickSingleFolderAsync();
                 StartRecording();
             });
-
-            return _folder != null;
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Folder selection failed: {ex.Message}");
-            return false;
         }
     }
 
@@ -102,10 +97,9 @@ public sealed partial class RecordingPage : Page
     {
         try
         {
-            //StorageFolder picturesFolder = KnownFolders.PicturesLibrary;
             if (_folder == null) return;
 
-            StorageFile file = await _folder.CreateFileAsync("captured_image.jpg", CreationCollisionOption.GenerateUniqueName);
+            StorageFile file = await _folder.CreateFileAsync($"{_ballX}-{_ballY}.jpg", CreationCollisionOption.GenerateUniqueName);
 
             using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
