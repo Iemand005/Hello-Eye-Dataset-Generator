@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="IRCameraView.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IRCameraView"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image x:Name="imageElement" Stretch="Uniform" />
+
+        <Grid>
+            <StackPanel Spacing="10" Margin="10" Orientation="Horizontal">
+                <ComboBox x:Name="DeviceComboBox" SelectionChanged="DeviceComboBox_SelectionChanged" Width="300" Margin="10"/>
+                <Button Click="TakePhoto_Click">Photo</Button>
+                <ToggleButton Click="TakeVideo_Click">Video</ToggleButton>
+                <TextBlock VerticalAlignment="Center">00:00</TextBlock>
+                <Button Click="Record_Click">Record data</Button>
+            </StackPanel>
+            <StackPanel Spacing="10" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Frame filter" VerticalAlignment="Center"/>
+                <ComboBox SelectedIndex="0" SelectionChanged="FrameFilter_SelectionChanged">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Dark</ComboBoxItem>
+                    <ComboBoxItem>Illuminated</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Page>

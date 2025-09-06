@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window
-    x:Class="IRCameraView.MainWindow"
+<Page
+    x:Class="IRCameraView.RecordingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:IRCameraView"
@@ -8,5 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Frame x:Name="MainFrame"/>
-</Window>
+    <Grid>
+        <Canvas>
+            <Ellipse Name="Ball" Canvas.Left="0" Canvas.Top="0" Width="10" Height="10" Fill="Red"/>
+        </Canvas>
+    </Grid>
+</Page>
