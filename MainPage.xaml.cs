@@ -126,6 +126,7 @@ public sealed partial class MainPage : Page
 
     private void Record_Click(object sender, RoutedEventArgs e)
     {
-        MainWindow.
-        }
+        _irController.Stop();
+        MainWindow.NavigationService.NavigateTo(typeof(RecordingPage));
+    }
 }

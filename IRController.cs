@@ -34,11 +34,16 @@ namespace IRCameraView
 
         private SoftwareBitmap _backBuffer;
 
-        public IRController()
+        public IRController(IRFrameFilter filter = IRFrameFilter.None, FrameReady frameReady = null, int deviceIndex = -1)
         {
-            FrameFilter = IRFrameFilter.None;
+            FrameFilter = filter;
             MediaCapture = new MediaCapture();
             LoadCameras(MediaFrameSourceKind.Infrared);
+
+            if (frameReady != null)
+                OnFrameReady += frameReady;
+            if (deviceIndex > -1)
+                SelectDeviceByIndex(deviceIndex);
 
             if (Devices.Count == 0)
                 throw new Exception("No infrared cameras were found.");
@@ -124,6 +129,12 @@ namespace IRCameraView
             MediaFrameReader.FrameArrived += FrameArrived;
 
             MediaFrameReader.StartAsync().AsTask().Wait();
+        }
+
+        public void Stop() {
+            MediaFrameReader.StopAsync().AsTask().Wait();
+            MediaFrameReader.Dispose();
+            MediaCapture.Dispose();
         }
 
         public void SelectDeviceByIndex(int index)

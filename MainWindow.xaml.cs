@@ -21,22 +21,27 @@ namespace IRCameraView
     {
         //private bool _isRecording = false;
         public static NavigationService NavigationService { get; private set; }
+        public static Window Window { get; private set; }
 
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            NavigationService = new NavigationService(MainFrame);
+            Window = this;
 
             GoToMainPage();
         }
 
         public void GoToMainPage()
         {
-            MainFrame.Navigate(typeof(MainPage));
+            NavigationService.NavigateTo(typeof(MainPage));
         }
 
         public void GoToRecordingPage()
         {
-            MainFrame.Navigate(typeof(RecordingPage));
+            NavigationService.NavigateTo(typeof(RecordingPage));
         }
+
     }
 }
